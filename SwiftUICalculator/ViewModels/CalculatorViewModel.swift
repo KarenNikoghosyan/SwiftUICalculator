@@ -75,9 +75,7 @@ extension CalculatorViewModel {
                     getRightNum(index: index)
                     
                     operate(mathematicalOperator: inputText[index])
-                    
-                    inputText = inputText.replacingOccurrences(of: "\(leftNum)\(letter)\(rightNum)", with: calculated)
-                    resetNums()
+                    replaceOccurrences(letter: String(letter))
                     
                     calculate()
                 }
@@ -95,9 +93,7 @@ extension CalculatorViewModel {
                     getRightNum(index: index)
                     
                     operate(mathematicalOperator: inputText[index])
-                    
-                    inputText = inputText.replacingOccurrences(of: "\(leftNum)\(letter)\(rightNum)", with: calculated)
-                    resetNums()
+                    replaceOccurrences(letter: String(letter))
                     
                     calculate()
                 }
@@ -149,6 +145,11 @@ extension CalculatorViewModel {
         default:
             break
         }
+    }
+    
+    private func replaceOccurrences(letter: String) {
+        inputText = inputText.replacingOccurrences(of: "\(leftNum)\(letter)\(rightNum)", with: calculated)
+        resetNums()
     }
     
     private func resetNums() {
