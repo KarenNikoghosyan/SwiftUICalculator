@@ -132,6 +132,15 @@
 			path = Modifiers;
 			sourceTree = "<group>";
 		};
+		7867167B28CE7558001894CB /* CalculatorFlow */ = {
+			isa = PBXGroup;
+			children = (
+				783E339C28C73A4500AD3671 /* Calculator */,
+				783E339F28C73AA700AD3671 /* History */,
+			);
+			path = CalculatorFlow;
+			sourceTree = "<group>";
+		};
 		78A90C9F2855F7D800716E9B = {
 			isa = PBXGroup;
 			children = (
@@ -152,10 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				783E338228C4D72900AD3671 /* Database */,
+				7867167B28CE7558001894CB /* CalculatorFlow */,
 				78E293A92857587000CEBE19 /* Extensions */,
 				7867167028C9CAE2001894CB /* Modifiers */,
-				783E339C28C73A4500AD3671 /* Calculator */,
-				783E339F28C73AA700AD3671 /* History */,
 				78A90CAB2855F7D800716E9B /* SwiftUICalculatorApp.swift */,
 				783E338328C4D75900AD3671 /* SwiftUICalculator.xcdatamodeld */,
 				78A90CAF2855F7D900716E9B /* Assets.xcassets */,
