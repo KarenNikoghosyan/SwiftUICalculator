@@ -9,4 +9,9 @@ import Foundation
 
 class CalculatorHistoryViewModel: ObservableObject {
     
+    @Published var histories: [History]
+    
+    init() {
+        histories = Database.shared.fetchHistory()
+    }
 }

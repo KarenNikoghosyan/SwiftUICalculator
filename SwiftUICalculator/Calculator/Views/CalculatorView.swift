@@ -11,12 +11,12 @@ struct CalculatorView: View {
     
     @StateObject private var calculatorViewModel = CalculatorViewModel()
     
-    @State private var isOn = false
-    
+    @State private var foregroundColor: Color = .black
+        
     var body: some View {
         NavigationView {
             ZStack {
-                isOn ? Color.init(UIColor(red: 42 / 255, green: 42 / 255, blue: 42 / 255, alpha: 1)).ignoresSafeArea() : Color.white.ignoresSafeArea()
+                calculatorViewModel.isNight ? Color.init(UIColor(red: 42 / 255, green: 42 / 255, blue: 42 / 255, alpha: 1)).ignoresSafeArea() : Color.white.ignoresSafeArea()
                 
                 VStack(spacing: 0) {
                     Text(calculatorViewModel.inputText)
@@ -25,7 +25,7 @@ struct CalculatorView: View {
                         .frame(height: 10)
                         .padding(.top, 14)
                         .padding(.trailing, 24)
-                        .foregroundColor(isOn ? Color.white : Color.black)
+                        .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                     
                     Text(calculatorViewModel.calculatedText)
                         .font(.custom("Futura-Bold", size: 32))
@@ -33,7 +33,7 @@ struct CalculatorView: View {
                         .frame(height: 42)
                         .padding(.top, 8)
                         .padding([.trailing, .bottom], 24)
-                        .foregroundColor(isOn ? Color.white : Color.black)
+                        .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                     
                     Rectangle()
                         .fill(.gray)
@@ -56,36 +56,40 @@ struct CalculatorView: View {
                     ToolbarItem(placement: .principal) {
                         HStack {
                             Image(systemName: "candybarphone")
-                                .foregroundColor(isOn ? Color.white : Color.black)
+                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                             
                             Text("Calculator")
                                 .font(.headline)
-                                .foregroundColor(isOn ? Color.white : Color.black)
+                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                         }
                     }
                     
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink {
-                            CalculatorHistoryView()
+                            CalculatorHistoryView(calculatorViewModel: calculatorViewModel)
                         } label: {
                             Image(systemName: "clock")
                                 .resizable()
                                 .frame(width: 30, height: 30)
-                                .foregroundColor(isOn ? Color.white : Color.black)
+                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                         }
                     }
                     
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Toggle(isOn: $isOn) {
-                            Text(isOn ? "LIGHT" : "DARK")
+                        Toggle(isOn: $calculatorViewModel.isNight) {
+                            Text(calculatorViewModel.isNight ? "LIGHT" : "DARK")
                                 .font(.custom("Futura-Bold", size: 15))
-                                .foregroundColor(isOn ? Color.white : Color.black)
+                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                         }
+                        .onChange(of: calculatorViewModel.isNight, perform: { _ in
+                            calculatorViewModel.save()
+                        })
                         .toggleStyle(.switch)
                     }
                 }
             }
         }
+        .accentColor(calculatorViewModel.isNight ? Color.white : Color.black)
     }
 }
 

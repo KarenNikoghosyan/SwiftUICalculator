@@ -16,9 +16,10 @@ enum MathematicalSymbol: String {
 
 class CalculatorViewModel: ObservableObject {
     
+    @Published var isNight = UserDefaults.standard.getIsNight()
     @Published var inputText = ""
     @Published var calculatedText = "0.0"
-    
+        
     private var leftNum = ""
     private var rightNum = ""
     private var calculated = ""
@@ -56,8 +57,14 @@ extension CalculatorViewModel {
     func equalTapped() {
         if inputText == "" {return}
         
+        let histroy = History(context: Database.shared.context)
+        histroy.inputText = inputText
+        
         calculate()
         resetNums()
+        
+        histroy.calculatedText = calculatedText
+        Database.shared.saveContext()
     }
     
     private func calculate() {
@@ -74,45 +81,56 @@ extension CalculatorViewModel {
                     //Searches the right side of the mathematical symbol
                     getRightNum(index: index)
                     
+                    if rightNum == "0" {
+                        inputText = ""
+                        calculatedText = "Can't divide by 0"
+                        return
+                    }
+                    
                     operate(mathematicalOperator: inputText[index])
                     replaceOccurrences(letter: String(letter))
                     
                     calculate()
                 }
-                
                 continue
             }
             
-            if (inputText.contains("+") || inputText.contains("-")) && !inputText[0].contains("-") {
+            if inputText.contains("+") || inputText.contains("-") {
+                if letter == "-" && index == 0 {continue}
+                
                 if letter == "+" || letter == "-" {
-                    
+                                                                
                     //Searches the left side of the mathematical symbol
                     getLeftNum(index: index)
-                    
+                        
                     //Searches the right side of the mathematical symbol
                     getRightNum(index: index)
-                    
+                        
                     operate(mathematicalOperator: inputText[index])
                     replaceOccurrences(letter: String(letter))
-                    
+                        
                     calculate()
                 }
-                
                 continue
             }
         }
         
-        calculatedText = calculated
+        calculatedText = String(Double(calculated)?.formatter ?? "")
         inputText = ""
     }
     
     private func getLeftNum(index: Int) {
         
         for i in (0..<index).reversed() {
+            
+            if i == 0 && isMathematical(index: i) {
+                leftNum += inputText[i]
+            }
+            
             if isMathematical(index: i) {
                 break
             }
-            self.leftNum += inputText[i]
+            leftNum += inputText[i]
         }
         leftNum = String(leftNum.reversed())
     }
@@ -162,5 +180,9 @@ extension CalculatorViewModel {
         calculatedText = "0.0"
         leftNum = ""
         rightNum = ""
+    }
+    
+    func save() {
+        UserDefaults.standard.setIsNight(value: self.isNight)
     }
 }
