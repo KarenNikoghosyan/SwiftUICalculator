@@ -22,15 +22,17 @@ struct CalculatorHistoryView: View {
 
             List {
                 ForEach(calculatorHistoryViewModel.histories, id: \.self) { history in
-                    HistoryCellView(inputText: history.inputText ?? "", calculatedText: history.calculatedText ?? "")
+                    HistoryCellView(calculatorViewModel: calculatorViewModel, inputText: history.inputText ?? "", calculatedText: history.calculatedText ?? "")
                         .frame(maxWidth: .infinity)
                 }
                 .onDelete { indexSet in
                     Database.shared.delete(history: calculatorHistoryViewModel.histories.remove(at: indexSet[indexSet.startIndex]))
                 }
                 .listRowSeparator(.hidden)
+                .listRowBackground(calculatorViewModel.isNight ? Color.init(red: 42 / 255, green: 42 / 255, blue: 42 / 255, opacity: 1) : Color.white)
             }
             .listStyle(.plain)
+            .scrollContentBackground(.hidden)
         }
         .navigationTitle("History")
         .navigationBarTitleDisplayMode(.large)

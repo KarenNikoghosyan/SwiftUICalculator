@@ -10,9 +10,7 @@ import SwiftUI
 struct CalculatorView: View {
     
     @StateObject private var calculatorViewModel = CalculatorViewModel()
-    
-    @State private var foregroundColor: Color = .black
-        
+            
     var body: some View {
         NavigationView {
             ZStack {

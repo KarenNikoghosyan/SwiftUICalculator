@@ -68,7 +68,8 @@ extension CalculatorViewModel {
     }
     
     private func calculate() {
-        if !inputText.contains("*") && !inputText.contains("/") && !inputText.contains("+") && !inputText.contains("-")  {return}
+        if (!inputText.contains("*") && !inputText.contains("/") && !inputText.contains("+") && !inputText.contains("-")) ||
+            (inputText.last == "*" || inputText.last == "/" || inputText.last == "+" || inputText.last == "-")  {return}
         
         for (index, letter) in inputText.enumerated() {
             
@@ -81,7 +82,7 @@ extension CalculatorViewModel {
                     //Searches the right side of the mathematical symbol
                     getRightNum(index: index)
                     
-                    if rightNum == "0" {
+                    if rightNum == "0" && letter == "/" {
                         inputText = ""
                         calculatedText = "Can't divide by 0"
                         return
@@ -125,6 +126,7 @@ extension CalculatorViewModel {
             
             if i == 0 && isMathematical(index: i) {
                 leftNum += inputText[i]
+                continue
             }
             
             if isMathematical(index: i) {
