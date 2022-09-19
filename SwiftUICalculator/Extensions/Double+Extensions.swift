@@ -13,7 +13,7 @@ extension Double {
 
         //Set it up to always display 2 decimal places.
         formatter.alwaysShowsDecimalSeparator = false
-        formatter.minimumFractionDigits = 2
+        formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
         if let formatted = formatter.string(from: NSNumber(value: self)) {

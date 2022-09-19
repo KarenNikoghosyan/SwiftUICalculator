@@ -18,11 +18,12 @@ class CalculatorViewModel: ObservableObject {
     
     @Published var isNight = UserDefaults.standard.getIsNight()
     @Published var inputText = ""
-    @Published var calculatedText = "0.0"
+    @Published var calculatedText = "0"
         
     private var leftNum = ""
     private var rightNum = ""
     private var calculated = ""
+    private var isFailed = false
     
     let buttonsTextArray: [(String, String?, MathematicalSymbol?)] = [("C", nil, .clear), ("()", nil, .parentheses), ("delete.left.fill", "delete.left.fill", .delete), ("/", nil, nil), ("7", nil, nil), ("8", nil, nil), ("9", nil, nil), ("*", nil, nil), ("4", nil, nil), ("5", nil, nil), ("6", nil, nil), ("-", nil, nil), ("1", nil, nil), ("2", nil, nil), ("3", nil, nil), ("+", nil, nil), ("0", nil, nil), (".", nil, nil), ("=", nil, .equality)]
     
@@ -70,8 +71,10 @@ extension CalculatorViewModel {
     private func calculate() {
         if (!inputText.contains("*") && !inputText.contains("/") && !inputText.contains("+") && !inputText.contains("-")) ||
             (inputText.last == "*" || inputText.last == "/" || inputText.last == "+" || inputText.last == "-")  {return}
-        
+                
         for (index, letter) in inputText.enumerated() {
+            
+            if isFailed {return}
             
             if inputText.contains("*") || inputText.contains("/") {
                 if letter == "*" || letter == "/" {
@@ -82,12 +85,13 @@ extension CalculatorViewModel {
                     //Searches the right side of the mathematical symbol
                     getRightNum(index: index)
                     
-                    if rightNum == "0" && letter == "/" {
+                    if letter == "/" && rightNum == "0" {
                         inputText = ""
                         calculatedText = "Can't divide by 0"
+                        isFailed = true
                         return
                     }
-                    
+                                        
                     operate(mathematicalOperator: inputText[index])
                     replaceOccurrences(letter: String(letter))
                     
@@ -155,13 +159,13 @@ extension CalculatorViewModel {
     private func operate(mathematicalOperator: String) {
         switch mathematicalOperator {
         case "*":
-            calculated = String((Double(leftNum) ?? 0.0) * (Double(rightNum) ?? 0.0))
+            calculated = String(((Double(leftNum) ?? 0.0) * (Double(rightNum) ?? 0.0)).formatter)
         case "/":
-            calculated = String((Double(leftNum) ?? 0.0) / (Double(rightNum) ?? 0.0))
+            calculated = String(((Double(leftNum) ?? 0.0) / (Double(rightNum) ?? 0.0)).formatter)
         case "+":
-            calculated = String((Double(leftNum) ?? 0.0) + (Double(rightNum) ?? 0.0))
+            calculated = String(((Double(leftNum) ?? 0.0) + (Double(rightNum) ?? 0.0)).formatter)
         case "-":
-            calculated = String((Double(leftNum) ?? 0.0) - (Double(rightNum) ?? 0.0))
+            calculated = String(((Double(leftNum) ?? 0.0) - (Double(rightNum) ?? 0.0)).formatter)
         default:
             break
         }
@@ -175,11 +179,12 @@ extension CalculatorViewModel {
     private func resetNums() {
         leftNum = ""
         rightNum = ""
+        isFailed = false
     }
     
     func clearTapped() {
         inputText = ""
-        calculatedText = "0.0"
+        calculatedText = "0"
         leftNum = ""
         rightNum = ""
     }

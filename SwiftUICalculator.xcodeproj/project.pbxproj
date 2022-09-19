@@ -25,6 +25,8 @@
 		78A90CBF285609FC00716E9B /* CalculatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A90CBE285609FC00716E9B /* CalculatorViewModel.swift */; };
 		78A90CC12856110A00716E9B /* CalculatorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A90CC02856110A00716E9B /* CalculatorButtonView.swift */; };
 		78E293AB285758B700CEBE19 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E293AA285758B700CEBE19 /* String+Extensions.swift */; };
+		78F1F17528D1E4C70022E89A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F1F17428D1E4C70022E89A /* RootView.swift */; };
+		78F1F17728D1EBDE0022E89A /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F1F17628D1EBDE0022E89A /* RootViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,8 @@
 		78A90CBE285609FC00716E9B /* CalculatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewModel.swift; sourceTree = "<group>"; };
 		78A90CC02856110A00716E9B /* CalculatorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorButtonView.swift; sourceTree = "<group>"; };
 		78E293AA285758B700CEBE19 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		78F1F17428D1E4C70022E89A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		78F1F17628D1EBDE0022E89A /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,8 @@
 				78E293A92857587000CEBE19 /* Extensions */,
 				7867167028C9CAE2001894CB /* Modifiers */,
 				78A90CAB2855F7D800716E9B /* SwiftUICalculatorApp.swift */,
+				78F1F17428D1E4C70022E89A /* RootView.swift */,
+				78F1F17628D1EBDE0022E89A /* RootViewModel.swift */,
 				783E338328C4D75900AD3671 /* SwiftUICalculator.xcdatamodeld */,
 				78A90CAF2855F7D900716E9B /* Assets.xcassets */,
 				78A90CB12855F7D900716E9B /* Preview Content */,
@@ -270,6 +276,7 @@
 				78A90CBA2855F7FA00716E9B /* CalculatorView.swift in Sources */,
 				7867166F28C7F5FF001894CB /* Double+Extensions.swift in Sources */,
 				783E339728C5EEFA00AD3671 /* History+CoreDataProperties.swift in Sources */,
+				78F1F17528D1E4C70022E89A /* RootView.swift in Sources */,
 				78A90CBF285609FC00716E9B /* CalculatorViewModel.swift in Sources */,
 				783E339628C5EEFA00AD3671 /* History+CoreDataClass.swift in Sources */,
 				783E338728C5E38500AD3671 /* HistoryCellView.swift in Sources */,
@@ -282,6 +289,7 @@
 				78E293AB285758B700CEBE19 /* String+Extensions.swift in Sources */,
 				7867167A28CBED96001894CB /* NavigationBarModifier.swift in Sources */,
 				7867167428C9CE4F001894CB /* UserDefaults+Extensions.swift in Sources */,
+				78F1F17728D1EBDE0022E89A /* RootViewModel.swift in Sources */,
 				78A90CC12856110A00716E9B /* CalculatorButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

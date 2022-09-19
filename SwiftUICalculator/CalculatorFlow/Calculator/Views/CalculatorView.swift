@@ -10,7 +10,9 @@ import SwiftUI
 struct CalculatorView: View {
     
     @StateObject private var calculatorViewModel = CalculatorViewModel()
-            
+    
+    @State private var navigationTitleColor = UIColor.black
+                
     var body: some View {
         NavigationView {
             ZStack {
@@ -49,19 +51,9 @@ struct CalculatorView: View {
                     
                     Spacer()
                 }
+                .navigationTitle("Calculator")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        HStack {
-                            Image(systemName: "candybarphone")
-                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
-                            
-                            Text("Calculator")
-                                .font(.headline)
-                                .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
-                        }
-                    }
-                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink {
                             CalculatorHistoryView(calculatorViewModel: calculatorViewModel)
@@ -80,6 +72,7 @@ struct CalculatorView: View {
                                 .foregroundColor(calculatorViewModel.isNight ? Color.white : Color.black)
                         }
                         .onChange(of: calculatorViewModel.isNight, perform: { _ in
+                            changeNavigationTitleTextColor()
                             calculatorViewModel.save()
                         })
                         .toggleStyle(.switch)
@@ -88,6 +81,16 @@ struct CalculatorView: View {
             }
         }
         .accentColor(calculatorViewModel.isNight ? Color.white : Color.black)
+        .onAppear {
+            changeNavigationTitleTextColor()
+        }
+        .id(navigationTitleColor)
+    }
+    
+    private func changeNavigationTitleTextColor() {
+        navigationTitleColor = calculatorViewModel.isNight ? UIColor.white : UIColor.black
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: navigationTitleColor]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: navigationTitleColor]
     }
 }
 
