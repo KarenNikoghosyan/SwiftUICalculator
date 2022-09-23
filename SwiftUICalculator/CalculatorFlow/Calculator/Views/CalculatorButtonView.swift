@@ -21,7 +21,7 @@ struct CalculatorButtonView: View {
         Button {
             switch mathematicalSymbol {
             case .parentheses:
-                break
+                calculatorViewModel.parenthesesTapped()
             case .equality:
                 calculatorViewModel.equalTapped()
             case .delete:

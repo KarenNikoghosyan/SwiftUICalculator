@@ -25,13 +25,17 @@ class CalculatorViewModel: ObservableObject {
     private var calculated = ""
     private var isFailed = false
     
-    let buttonsTextArray: [(String, String?, MathematicalSymbol?)] = [("C", nil, .clear), ("()", nil, .parentheses), ("delete.left.fill", "delete.left.fill", .delete), ("/", nil, nil), ("7", nil, nil), ("8", nil, nil), ("9", nil, nil), ("*", nil, nil), ("4", nil, nil), ("5", nil, nil), ("6", nil, nil), ("-", nil, nil), ("1", nil, nil), ("2", nil, nil), ("3", nil, nil), ("+", nil, nil), ("0", nil, nil), (".", nil, nil), ("=", nil, .equality)]
+    let buttonsTextArray: [(String, String?, MathematicalSymbol?)] = [("C", nil, .clear), ("()", nil, .parentheses), ("delete.left.fill", "delete.left.fill", .delete), ("÷", nil, nil), ("7", nil, nil), ("8", nil, nil), ("9", nil, nil), ("x", nil, nil), ("4", nil, nil), ("5", nil, nil), ("6", nil, nil), ("-", nil, nil), ("1", nil, nil), ("2", nil, nil), ("3", nil, nil), ("+", nil, nil), ("0", nil, nil), (".", nil, nil), ("=", nil, .equality)]
     
-    private let mathematicalSymbols = ["*", "/", "+", "-"]
+    private let mathematicalSymbols = ["x", "÷", "+", "-"]
 }
 
 //MARK: - Functions
 extension CalculatorViewModel {
+    
+    func parenthesesTapped() {
+        print("Parentheses")
+    }
     
     func charTapped(char: String) {
         if inputText == "" && char != "-" {
@@ -39,14 +43,14 @@ extension CalculatorViewModel {
         }
         
         if isContainingSymbol(char: char) {
-            if inputText.last == "*" || inputText.last == "/" || inputText.last == "+" || inputText.last == "-" || inputText.last == "." { return }
+            if inputText.last == "x" || inputText.last == "÷" || inputText.last == "+" || inputText.last == "-" || inputText.last == "." { return }
         }
         
         inputText += char
     }
     
     private func isContainingSymbol(char: String) -> Bool {
-        return char == "*" || char == "/" || char == "+" || char == "-" || char == "."
+        return char == "x" || char == "÷" || char == "+" || char == "-" || char == "."
     }
     
     func deleteCharTapped() {
@@ -69,15 +73,15 @@ extension CalculatorViewModel {
     }
     
     private func calculate() {
-        if (!inputText.contains("*") && !inputText.contains("/") && !inputText.contains("+") && !inputText.contains("-")) ||
-            (inputText.last == "*" || inputText.last == "/" || inputText.last == "+" || inputText.last == "-")  {return}
+        if (!inputText.contains("x") && !inputText.contains("÷") && !inputText.contains("+") && !inputText.contains("-")) ||
+            (inputText.last == "x" || inputText.last == "÷" || inputText.last == "+" || inputText.last == "-")  {return}
                 
         for (index, letter) in inputText.enumerated() {
             
             if isFailed {return}
             
-            if inputText.contains("*") || inputText.contains("/") {
-                if letter == "*" || letter == "/" {
+            if inputText.contains("x") || inputText.contains("÷") {
+                if letter == "x" || letter == "÷" {
                     
                     //Searches the left side of the mathematical symbol
                     getLeftNum(index: index)
@@ -85,7 +89,7 @@ extension CalculatorViewModel {
                     //Searches the right side of the mathematical symbol
                     getRightNum(index: index)
                     
-                    if letter == "/" && rightNum == "0" {
+                    if letter == "÷" && rightNum == "0" {
                         inputText = ""
                         calculatedText = "Can't divide by 0"
                         isFailed = true
@@ -153,14 +157,14 @@ extension CalculatorViewModel {
     }
     
     private func isMathematical(index: Int) -> Bool {
-        return inputText[index] == "*" || inputText[index] == "/" || inputText[index] == "+" || inputText[index] == "-"
+        return inputText[index] == "x" || inputText[index] == "÷" || inputText[index] == "+" || inputText[index] == "-"
     }
     
     private func operate(mathematicalOperator: String) {
         switch mathematicalOperator {
-        case "*":
+        case "x":
             calculated = String(((Double(leftNum) ?? 0.0) * (Double(rightNum) ?? 0.0)).formatter)
-        case "/":
+        case "÷":
             calculated = String(((Double(leftNum) ?? 0.0) / (Double(rightNum) ?? 0.0)).formatter)
         case "+":
             calculated = String(((Double(leftNum) ?? 0.0) + (Double(rightNum) ?? 0.0)).formatter)
