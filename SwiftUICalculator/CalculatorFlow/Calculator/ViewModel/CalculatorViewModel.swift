@@ -128,8 +128,7 @@ extension CalculatorViewModel {
         inputText = ""
     }
     
-    private func getLeftNum(index: Int) {
-        
+    private func getLeftNum(index: Int) { 
         for i in (0..<index).reversed() {
             
             if i == 0 && isMathematical(index: i) {
