@@ -42,6 +42,7 @@ struct CalculatorButtonView: View {
             } else {
                 Text(char)
                     .frame(width: buttonWidth, height: buttonHeight)
+                    .font(.custom("Futura", size: 24))
                     .foregroundColor(Color(red: 127/255, green: 127/255, blue: 127/255))
                     .background(Color(red: 237/255, green: 237/255, blue: 237/255))
                     .clipShape(Circle())
