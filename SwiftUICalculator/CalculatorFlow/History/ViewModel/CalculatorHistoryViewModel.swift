@@ -12,6 +12,6 @@ class CalculatorHistoryViewModel: ObservableObject {
     @Published var histories: [History]
     
     init() {
-        histories = Database.shared.fetchHistory()
+        histories = Database.shared.fetchHistory().reversed()
     }
 }
