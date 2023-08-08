@@ -62,13 +62,13 @@ extension CalculatorViewModel {
     func equalTapped() {
         if inputText == "" {return}
         
-        let histroy = History(context: Database.shared.context)
-        histroy.inputText = inputText
+        let history = History(context: Database.shared.context)
+        history.inputText = inputText
         
         calculate()
         resetNums()
         
-        histroy.calculatedText = calculatedText
+        history.calculatedText = calculatedText
         Database.shared.saveContext()
     }
     
