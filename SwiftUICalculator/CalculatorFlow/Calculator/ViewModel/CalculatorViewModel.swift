@@ -25,7 +25,27 @@ class CalculatorViewModel: ObservableObject {
     private var calculated = ""
     private var isFailed = false
     
-    let buttonsTextArray: [(String, String?, MathematicalSymbol?)] = [("C", nil, .clear), ("()", nil, .parentheses), ("delete.left.fill", "delete.left.fill", .delete), ("÷", nil, nil), ("7", nil, nil), ("8", nil, nil), ("9", nil, nil), ("x", nil, nil), ("4", nil, nil), ("5", nil, nil), ("6", nil, nil), ("-", nil, nil), ("1", nil, nil), ("2", nil, nil), ("3", nil, nil), ("+", nil, nil), ("0", nil, nil), (".", nil, nil), ("=", nil, .equality)]
+    let buttonsTextArray: [(String, String?, MathematicalSymbol?)] = [
+        ("C", nil, .clear),
+        ("()", nil, .parentheses),
+        ("delete.left.fill", "delete.left.fill", .delete),
+        ("÷", nil, nil),
+        ("7", nil, nil),
+        ("8", nil, nil),
+        ("9", nil, nil),
+        ("x", nil, nil),
+        ("4", nil, nil),
+        ("5", nil, nil),
+        ("6", nil, nil),
+        ("-", nil, nil),
+        ("1", nil, nil), 
+        ("2", nil, nil),
+        ("3", nil, nil),
+        ("+", nil, nil),
+        ("0", nil, nil),
+        (".", nil, nil),
+        ("=", nil, .equality)
+    ]
     
     private let mathematicalSymbols = ["x", "÷", "+", "-"]
 }
